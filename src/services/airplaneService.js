@@ -46,10 +46,6 @@ const getAirplane = async (id) => {
                 error.statusCode
             );
         }
-        throw new AppError(
-            "Cannot fetch data of all the airplanes",
-            StatusCodes.INTERNAL_SERVER_ERROR
-        );
     }
 };
 
@@ -64,15 +60,28 @@ const destroyAirplane = async (id) => {
                 error.statusCode
             );
         }
-        throw new AppError(
-            "Cannot fetch data of all the airplanes",
-            StatusCodes.INTERNAL_SERVER_ERROR
-        );
     }
 };
+
+const updateAirplane = async (capacity, id) => {
+    try {
+        console.log(".inside service.", data);
+        const response = await airplaneRepository.update(capacity, id);
+        return response;
+    } catch (error) {
+        if (error.statusCode === StatusCodes.NOT_FOUND) {
+            throw new AppError(
+                "The Airplane you requested to update is not found",
+                error.statusCode
+            );
+        }
+    }
+};
+
 module.exports = {
     createAirplane,
     getAirplanes,
     getAirplane,
     destroyAirplane,
+    updateAirplane,
 };
