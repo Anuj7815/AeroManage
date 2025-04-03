@@ -63,18 +63,29 @@ const destroyAirplane = async (id) => {
     }
 };
 
-const updateAirplane = async (capacity, id) => {
+const updateAirplane = async (id, capacity) => {
     try {
-        console.log(".inside service.", data);
         const response = await airplaneRepository.update(capacity, id);
+        console.log(response);
         return response;
     } catch (error) {
-        if (error.statusCode === StatusCodes.NOT_FOUND) {
-            throw new AppError(
-                "The Airplane you requested to update is not found",
-                error.statusCode
-            );
+        console.log("Error while updating the airplane", error);
+        if (
+            error.name === "SequelizeValidationError" ||
+            error.name === "SequelizeUniqueConstraintError"
+        ) {
+            let explanation = [];
+            error.errors.forEach((err) => {
+                explanation.push(err.message);
+            });
+            throw new AppError(explanation, StatusCodes.BAD_REQUEST);
         }
+
+        // Forward the exact AppError from the repository
+        throw new AppError(
+            error.message || "Something went wrong during update",
+            error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR
+        );
     }
 };
 

@@ -57,16 +57,18 @@ const desrtroyAirplane = async (req, res) => {
 
 const updateAirplane = async (req, res) => {
     try {
-        console.log(req.body.capacity);
         const airplane = await AirplaneService.updateAirplane(
-            req.body.capacity,
-            req.params.id
+            req.params.id,
+            req.body
         );
         SuccessResponse.data = airplane;
         return res.status(StatusCodes.OK).json(SuccessResponse);
     } catch (error) {
+        console.log(error);
         ErrorResponse.error = error;
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res
+            .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(ErrorResponse);
     }
 };
 
