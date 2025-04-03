@@ -66,10 +66,8 @@ const destroyAirplane = async (id) => {
 const updateAirplane = async (id, capacity) => {
     try {
         const response = await airplaneRepository.update(capacity, id);
-        console.log(response);
         return response;
     } catch (error) {
-        console.log("Error while updating the airplane", error);
         if (
             error.name === "SequelizeValidationError" ||
             error.name === "SequelizeUniqueConstraintError"
@@ -80,8 +78,6 @@ const updateAirplane = async (id, capacity) => {
             });
             throw new AppError(explanation, StatusCodes.BAD_REQUEST);
         }
-
-        // Forward the exact AppError from the repository
         throw new AppError(
             error.message || "Something went wrong during update",
             error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR

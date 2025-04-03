@@ -33,7 +33,6 @@ const getAirplanes = async (req, res) => {
 
 const getAirplane = async (req, res) => {
     try {
-        // console.log("inside getairplane", req.params.id);
         const airplane = await AirplaneService.getAirplane(req.params.id);
         SuccessResponse.data = airplane;
         return res.status(StatusCodes.OK).json(SuccessResponse);
@@ -45,7 +44,6 @@ const getAirplane = async (req, res) => {
 
 const desrtroyAirplane = async (req, res) => {
     try {
-        // console.log("inside getairplane", req.params.id);
         const airplane = await AirplaneService.destroyAirplane(req.params.id);
         SuccessResponse.data = airplane;
         return res.status(StatusCodes.OK).json(SuccessResponse);
@@ -64,7 +62,6 @@ const updateAirplane = async (req, res) => {
         SuccessResponse.data = airplane;
         return res.status(StatusCodes.OK).json(SuccessResponse);
     } catch (error) {
-        console.log(error);
         ErrorResponse.error = error;
         return res
             .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
