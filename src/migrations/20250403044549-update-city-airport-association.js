@@ -12,7 +12,7 @@ module.exports = {
                 field: "id",
             },
             onUpdate: "CASCADE",
-            onDELETE: "CASCADE",
+            onDelete: "CASCADE",
         });
     },
 
@@ -23,6 +23,3 @@ module.exports = {
         );
     },
 };
-
-
-
