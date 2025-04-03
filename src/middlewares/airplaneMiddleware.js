@@ -3,8 +3,6 @@ const { ErrorResponse } = require("../utils/common");
 const AppError = require("../utils/error/appError");
 
 const validateCreateRequest = (req, res, next) => {
-    console.log("Inside validate request");
-    
     if (!req.body.modelNumber) {
         ErrorResponse.message = "Something went wrong while creating airplane";
         ErrorResponse.error = new AppError(
