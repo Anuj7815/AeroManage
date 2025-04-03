@@ -41,12 +41,23 @@ const destroyCity = async (data) => {
 
 const updateCity = async (id, data) => {
     try {
-        console.log("Inside cityservice", data, id);
         const response = await cityRepository.update(data, id);
-        SuccessResponse = response;
-        return res.status(StatusCodes.OK).json(SuccessResponse);
+        return response;
     } catch (error) {
-        throw new AppError("The city is not present", error.statusCode);
+        if (
+            error.name === "SequelizeValidationError" ||
+            error.name === "SequelizeUniqueConstraintError"
+        ) {
+            let explanation = [];
+            error.errors.forEach((err) => {
+                explanation.push(err.message);
+            });
+            throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+        }
+        throw new AppError(
+            "The city is not present cannot update the city",
+            error.statusCode || StatusCodes.NOT_FOUND
+        );
     }
 };
 

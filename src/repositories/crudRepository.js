@@ -46,17 +46,11 @@ class CrudRepository {
     }
 
     async update(data, id) {
-        console.log(data);
-        console.log(typeof id);
-        id = parseInt(id);
-        console.log(typeof id);
         const response = await this.model.update(data, {
             where: {
                 id: id,
             },
         });
-        console.log(this.model.name, ".....");
-        console.log("erfegbvdsefd", response);
         if (response[0] === 0) {
             throw new AppError(
                 "Not able to find the resource",

@@ -28,14 +28,14 @@ const destroyCity = async (req, res) => {
 
 const updateCity = async (req, res) => {
     try {
-        console.log(",,,,", req.body.name);
-        const city = await CityService.updateCity(req.params.id, req.body.name);
-
+        const city = await CityService.updateCity(req.params.id, req.body);
         SuccessResponse.data = city;
         return res.status(StatusCodes.OK).json(SuccessResponse);
     } catch (error) {
         ErrorResponse.error = error;
-        return res.status(error.statusCode).json(ErrorResponse);
+        return res
+            .status(error.statusCode || StatusCodes.INTERNAL_SERVER_ERROR)
+            .json(ErrorResponse);
     }
 };
 
