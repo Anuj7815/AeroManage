@@ -108,7 +108,29 @@ const getFlight = async (id) => {
                 error.statusCode
             );
         }
-        throw new AppError('Cannot fetch data of the flight.',StatusCodes.INTERNAL_SERVER_ERROR);
+        throw new AppError(
+            "Cannot fetch data of the flight.",
+            StatusCodes.INTERNAL_SERVER_ERROR
+        );
+    }
+};
+
+const updateSeats = async (data) => {
+    console.log(data);
+    try {
+        const response = await flightRepository.updateRemainingSeats(
+            data.flightId,
+            data.seats,
+            data.dec
+        );
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.log(error.message);
+        throw new AppError(
+            "Cannot update data of the flight",
+            StatusCodes.INTERNAL_SERVER_ERROR
+        );
     }
 };
 
@@ -116,6 +138,7 @@ module.exports = {
     createFlight,
     getAllFlights,
     getFlight,
+    updateSeats,
     // getAirports,
     // getAirport,
     // destroyAirport,
