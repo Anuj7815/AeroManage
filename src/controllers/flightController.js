@@ -48,9 +48,24 @@ const getAllFlights = async (req, res) => {
     }
 };
 
+// POST: /flights/:id
+const getFlight = async (req, res) => {
+    try {
+        console.log(req.params.id);
+        console.log("inside get flight");
+        const flight = await FlightService.getFlight(req.params.id);
+        SuccessResponse.data = flight;
+        return res.status(StatusCodes.OK).json(SuccessResponse);
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+};
+
 module.exports = {
     createFlight,
     getAllFlights,
+    getFlight,
     // getAirports,
     // getAirport,
     // desrtroyAirport,

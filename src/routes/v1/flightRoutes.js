@@ -13,4 +13,7 @@ router.post(
 //  /api/v1/flights?trips=MUM-DEL        GET Request
 router.get("/", FlightController.getAllFlights);
 
+//  /api/v1/flights/:id        GET Request
+router.get("/:id", FlightController.getFlight);
+
 module.exports = router;
