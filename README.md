@@ -80,3 +80,7 @@ npm run start
 ```bash
 https://github.com/Anuj7815/AeroManage-Booking-Service
 ```
+
+### 7. Design Diagram of Aeromanage-Airline Booking System 
+
+![ChatGPT Image Apr 24, 2025, 08_47_24 AM](https://github.com/user-attachments/assets/429a48a0-1066-43e6-93cb-ddb833d60abf)
